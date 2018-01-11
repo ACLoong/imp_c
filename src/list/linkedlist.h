@@ -5,32 +5,28 @@
 #ifndef IMP_C_LINKEDLIST_H
 #define IMP_C_LINKEDLIST_H
 
-
-#include <cstdio>
+#include <stdio.h>
 
 typedef struct {
+    struct llist_node_t *prev;
     struct llist_node_t *next;
     void *data;
-
+    int len;
 }llist_node_t;
 
 typedef struct {
-    struct llist_node_t *head_node;
-    struct llist_node_t *tail_node;
-    size_t length;
+    struct llist_node_t *head;
+    struct llist_node_t *tail;
+    size_t len;
 }llist_t;
 
-typedef struct {
-
-}llist_hdr_t;
-
-static void llist_create();
-static void llist_init();
-static void llist_insert();
-static void llist_del();
-static void llist_append();
-static void llist_free();
-static void llist_get();
-static void llist_modify();
+struct llist_t *llist_create();
+int llist_insert(struct llist_t *list, size_t pos, void *data, size_t len);
+int llist_remove(struct llist_t *list, size_t pos);
+int llist_append(struct llist_t *list, void *data, size_t len);
+ssize_t llist_find(struct llist_t *list, void *data, size_t len);
+void llist_modify(struct llist_t *list, size_t pos, void *data, size_t len);
+int llist_get(llist_t *list, size_t pos, void **data, size_t *len);
+void llist_destroy(struct llist_t *list);
 
 #endif //IMP_C_LINKEDLIST_H
