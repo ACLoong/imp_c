@@ -49,8 +49,6 @@ void llist_iter_next(struct llist_iter_t *iter);
 void llist_iter_prev(struct llist_iter_t *iter);
 void llist_iter_head(struct llist_iter_t *iter);
 void llist_iter_tail(struct llist_iter_t *iter);
-void llist_iter_seek_head(struct llist_iter_t *iter);
-void llist_iter_seek_tail(struct llist_iter_t *iter);
 
 struct llist_node_t *llist_node_create();
 void llist_node_destroy(struct llist_node_t *node);
