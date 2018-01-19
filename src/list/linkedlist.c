@@ -8,6 +8,9 @@
 
 struct llist_t *llist_create() {
 	struct llist_t *result= (llist_t *)malloc(sizeof(llist_t));
+	if (!result) {
+		return NULL;
+	}
 	result->head = NULL;
 	result->tail = NULL;
 	result->len = 0;
@@ -167,11 +170,14 @@ void llist_destroy(struct llist_t *list) {
 		p = p->next;
 		free(q);
 	}
-	free(list);//destory？
+	free(list);//destory是这个意思吗？
 }
 
 struct llist_iter_t *llist_iter_create(struct llist_t *list) {
 	struct llist_iter_t *result = (llist_iter_t *)malloc(sizeof(llist_iter_t));
+	if (!result) {
+		return NULL;
+	}
 	result->list = list;
 	result->curr_node = list->head;
 	return result;
@@ -179,8 +185,11 @@ struct llist_iter_t *llist_iter_create(struct llist_t *list) {
 
 void llist_iter_attach(struct llist_iter_t *iter, struct llist_t *list) {
 	if (list) {
-		if (iter) {
+		if (!iter) {
 			iter = (llist_iter_t *)malloc(sizeof(llist_iter_t));
+			if (!iter) {
+				return;
+			}
 		}
 		iter->list = list;
 		iter->curr_node = list->head;
@@ -218,7 +227,6 @@ void llist_iter_tail(struct llist_iter_t *iter) {
 		iter->curr_node = iter->list->tail;
 	}
 }
-
 struct llist_node_t *llist_node_create()
 {
     //TODO
