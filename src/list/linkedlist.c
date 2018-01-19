@@ -170,7 +170,7 @@ void llist_destroy(struct llist_t *list) {
 		p = p->next;
 		free(q);
 	}
-	free(list);//destory是这个意思吗？
+	list=NULL;
 }
 
 struct llist_iter_t *llist_iter_create(struct llist_t *list) {
