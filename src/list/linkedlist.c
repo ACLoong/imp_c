@@ -35,7 +35,7 @@ int llist_insert(struct llist_t *list, size_t pos, void *data) {
 		p->prev = q;
 		return 0;
 	}
-	if (list->len ==0) {//当链表的当前长度为0时
+	if (list->len ==0) {
 		if (pos != 0) {
 			return -1;
 		}
@@ -67,6 +67,7 @@ void llist_remove(struct llist_t *list, size_t pos) {
 		free(p);
 	}
 }
+
 int llist_lpush(struct llist_t *list, void *data) {
 	struct llist_node_t *p = (struct llist_node_t *)malloc(sizeof(struct llist_node_t));
 	if (!p) {
@@ -86,6 +87,7 @@ int llist_rpush(struct llist_t *list, void *data) {
 	if (!p) {
 		return -1;
 	}
+
 	p->data = data;
 	p->prev = list->tail;
 	list->tail->next = p;
@@ -102,6 +104,7 @@ void *llist_lpop(struct llist_t *list) {
 
 	struct llist_node_t *p = list->head;
 	void * data = p->data;
+
 	if (1 == list->len) {
 		list->head = NULL;
 		list->tail = NULL;
@@ -110,19 +113,20 @@ void *llist_lpop(struct llist_t *list) {
 		list->head = p->next;
 		list->head->prev = NULL;
 	}
+
 	list->len -= 1;
 	free(p);
 	return data;
 }
 
 void *llist_rpop(struct llist_t *list) {
-	if (0 == list->len) {//当list为空是不进行任何操作，直接返回(void *)0
+	if (0 == list->len) {
 		return NULL;
 	}
 
 	struct llist_node_t *p = list->tail;
 	void * data = p->data;
-	if (1 == list->len) {//当list只有一个元素时，将tail和head指针置空，避免指向不存在的内存
+	if (1 == list->len) {
 		list->head = NULL;
 		list->tail = NULL;
 	}
@@ -136,7 +140,7 @@ void *llist_rpop(struct llist_t *list) {
 }
 
 void *llist_get(struct llist_t *list, size_t pos) {
-	if (pos >= list->len) {//当pos超过list范围时，返回(void *)0
+	if (pos >= list->len) {
 		return NULL;
 	}
 	struct llist_node_t *p = list->head;
@@ -147,7 +151,7 @@ void *llist_get(struct llist_t *list, size_t pos) {
 }
 
 int llist_modify(struct llist_t *list, size_t pos, void *data) {
-	if (pos >= list->len) {//当pos超过list范围时，不进行任何操作
+	if (pos >= list->len) {
 		return -1;
 	}
 	struct llist_node_t *p = list->head;
