@@ -19,7 +19,11 @@ struct llist_t *llist_create() {
 }
 
 int llist_insert(struct llist_t *list, size_t pos, void *data) {
-	if (list->len > pos) {
+	if (!list) {
+        return -1;
+    }
+
+    if (list->len > pos) {
 		struct llist_node_t *p = list->head;
 		struct llist_node_t *q = (struct llist_node_t *)malloc(sizeof(struct llist_node_t));
 		if (!q) {
@@ -35,7 +39,7 @@ int llist_insert(struct llist_t *list, size_t pos, void *data) {
 		p->prev = q;
 		return 0;
 	}
-	if (list->len ==0) {
+	if (list->len == 0) {
 		if (pos != 0) {
 			return -1;
 		}
