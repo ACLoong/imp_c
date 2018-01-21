@@ -3,7 +3,7 @@
 //
 #include"deque.h"
 
-struct deque_t *deque_create() {
+struct deque_t *dequeCreate() {
 	struct deque_t *result = (struct deque_t *)malloc(sizeof(struct deque_t));
 	
 	if (!result) {
@@ -16,7 +16,7 @@ struct deque_t *deque_create() {
 	return result;
 }
 
-int deque_insert(struct deque_t *deque, size_t pos, void *data) {
+int dequeInsert(struct deque_t *deque, size_t pos, void *data) {
 	if (deque == NULL || data == NULL || pos < 0) {
 		return -1;
 	}
@@ -202,7 +202,7 @@ int getLength(struct deque_t* deque) {
 	return deque->len;
 }
 
-int deque_modify(struct deque_t* deque, size_t pos, void *data) {
+int dequeModify(struct deque_t* deque, size_t pos, void *data) {
 	if (deque == NULL || data == NULL || pos < 0) {
 		return -1;
 	}
@@ -219,7 +219,7 @@ int deque_modify(struct deque_t* deque, size_t pos, void *data) {
 	return 0;
 }
 
-void deque_clear(struct deque_t* deque) {
+void dequeClear(struct deque_t* deque) {
 	if (!deque) {
 		return;
 	}
@@ -235,7 +235,7 @@ void deque_clear(struct deque_t* deque) {
 	deque->len = 0;
 }
 
-void deque_destroy(struct deque_t* deque) {
+void dequeDestroy(struct deque_t* deque) {
 	if (!deque) {
 		return;
 	}
