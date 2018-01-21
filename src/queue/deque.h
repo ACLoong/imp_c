@@ -18,8 +18,8 @@ struct deque_t {
 	size_t len;
 };
 
-struct deque_t *deque_create();
-int deque_insert(struct deque_t *deque, size_t pos, void *data);
+struct deque_t *dequeCreate();
+int dequeInsert(struct deque_t *deque, size_t pos, void *data);
 void *getHead(struct deque_t *deque);
 void *getTail(struct deque_t *deque);
 int enQueue(struct deque_t *deque,void *data);
@@ -29,8 +29,8 @@ void *deQueue(struct deque_t* deque);
 void *deQueueHead(struct deque_t* deque);
 void *deQueueTail(struct deque_t* deque);
 int getLength(struct deque_t* deque);
-int deque_modify(struct deque_t* deque, size_t pos, void *data);
-void deque_clear(struct deque_t* deque);
-void deque_destroy(struct deque_t* deque);
+int dequeModify(struct deque_t* deque, size_t pos, void *data);
+void dequeClear(struct deque_t* deque);
+void dequeDestroy(struct deque_t* deque);
 
 #endif //IMP_C_DEQUE_H
