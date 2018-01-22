@@ -24,27 +24,28 @@ struct deque_iter_t {
 	struct deque_node_t *curr_node;
 };
 
-struct deque_t *dequeCreate();
-int dequeInsert(struct deque_t *deque, size_t pos, void *data);
-void *getHead(struct deque_t *deque);
-void *getTail(struct deque_t *deque);
-int enQueue(struct deque_t *deque,void *data);
-int enQueueHead(struct deque_t *deque, void *data);
-int enQueueTail(struct deque_t *deque, void *data);
-void *deQueue(struct deque_t* deque);
-void *deQueueHead(struct deque_t* deque);
-void *deQueueTail(struct deque_t* deque);
-int getLength(struct deque_t* deque);
-int dequeModify(struct deque_t* deque, size_t pos, void *data);
-void dequeClear(struct deque_t* deque);//void llist_clear
-void dequeDestroy(struct deque_t* deque);//void llist_destroy
+struct deque_t *deque_create();
+int deque_insert(struct deque_t *deque, size_t pos, void *data);
+void *deque_getHead(struct deque_t *deque);
+void *deque_getTail(struct deque_t *deque);
+int deque_push(struct deque_t *deque,void *data);
+int deque_headPush(struct deque_t *deque, void *data);
+int deque_tailPush(struct deque_t *deque, void *data);
+void *deque_pop(struct deque_t *deque);
+void *deque_headPop(struct deque_t *deque);
+void *deque_tailPop(struct deque_t *deque);
+int deque_getLen(struct deque_t *deque);
+int deque_modify(struct deque_t *deque, size_t pos, void *data);
+void deque_clear(struct deque_t *deque);
+void deque_destroy(struct deque_t *deque);
 
-struct deque_iter_t *dequeIterCreate(struct deque_t *deque);
-void dequeIterDestory(struct deque_iter_t *iter);
-void dequeIterAttach(struct deque_iter_t *iter, struct deque_t *deque);
-void dequeIterNext(struct deque_iter_t *iter);
-void dequeIterPrev(struct deque_iter_t *iter);
-void dequeIterHead(struct deque_iter_t *iter);
-void dequeIterTail(struct deque_iter_t *iter);
+struct deque_iter_t *deque_iter_create(struct deque_t *deque);
+void deque_iter_destory(struct deque_iter_t *iter);
+void deque_iter_attach(struct deque_iter_t *iter, struct deque_t *deque);
+int deque_iter_next(struct deque_iter_t *iter);
+int deque_iter_prev(struct deque_iter_t *iter);
+void deque_iter_head(struct deque_iter_t *iter);
+void deque_iter_tail(struct deque_iter_t *iter);
+void deque_iter_release(struct deque_iter_t *iter);
 
 #endif //IMP_C_DEQUE_H
