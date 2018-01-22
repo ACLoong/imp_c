@@ -3,7 +3,7 @@
 //
 #include"deque.h"
 
-struct deque_t *dequeCreate() {
+struct deque_t *deque_create() {
 	struct deque_t *result = (struct deque_t *)malloc(sizeof(struct deque_t));
 	
 	if (!result) {
@@ -16,13 +16,13 @@ struct deque_t *dequeCreate() {
 	return result;
 }
 
-int dequeInsert(struct deque_t *deque, size_t pos, void *data) {
+int deque_insert(struct deque_t *deque, size_t pos, void *data) {
 	if (deque == NULL || data == NULL || pos < 0) {
 		return -1;
 	}
 	
 	if (pos == deque->len) {
-		enQueue(deque, data);
+		deque_push(deque, data);
 	}
 
 	struct deque_node_t *p = (struct deque_node_t *)malloc(sizeof(struct deque_node_t));
@@ -54,7 +54,7 @@ int dequeInsert(struct deque_t *deque, size_t pos, void *data) {
 	return 0;
 }
 
-void *getHead(struct deque_t *deque) {
+void *deque_getHead(struct deque_t *deque) {
 	if (!deque) {
 		return NULL;
 	}
@@ -66,7 +66,7 @@ void *getHead(struct deque_t *deque) {
 	return deque->head->data;
 }
 
-void *getTail(struct deque_t *deque) {
+void *deque_getTail(struct deque_t *deque) {
 	if (!deque) {
 		return NULL;
 	}
@@ -78,7 +78,7 @@ void *getTail(struct deque_t *deque) {
 	return deque->tail->data;
 }
 
-int enQueue(struct deque_t *deque, void *data) {
+int deque_push(struct deque_t *deque, void *data) {
 	if (deque == NULL || data == NULL) {
 		return -1;
 	}
@@ -106,7 +106,7 @@ int enQueue(struct deque_t *deque, void *data) {
 	return 0;
 }
 
-int enQueueHead(struct deque_t *deque, void *data) {
+int deque_headPush(struct deque_t *deque, void *data) {
 	if (deque == NULL || data == NULL) {
 		return -1;
 	}
@@ -134,11 +134,11 @@ int enQueueHead(struct deque_t *deque, void *data) {
 	return 0;
 }
 
-int enQueueTail(struct deque_t *deque, void *data) {
-	return enQueue(deque, data);
+int deque_tailPush(struct deque_t *deque, void *data) {
+	return deque_push(deque, data);
 }
 
-void *deQueue(struct deque_t* deque) {
+void *deque_pop(struct deque_t* deque) {
 	if (!deque) {
 		return NULL;
 	}
@@ -164,11 +164,11 @@ void *deQueue(struct deque_t* deque) {
 	return result;
 }
 
-void *deQueueHead(struct deque_t* deque) {
-	return deQueue(deque);
+void *deque_headPop(struct deque_t* deque) {
+	return deque_pop(deque);
 }
 
-void *deQueueTail(struct deque_t* deque) {
+void *deque_tailPop(struct deque_t* deque) {
 	if (!deque) {
 		return NULL;
 	}
@@ -194,7 +194,7 @@ void *deQueueTail(struct deque_t* deque) {
 	return result;
 }
 
-int getLength(struct deque_t* deque) {
+int deque_getLen(struct deque_t* deque) {
 	if (!deque) {
 		return -1;
 	}
@@ -202,7 +202,7 @@ int getLength(struct deque_t* deque) {
 	return deque->len;
 }
 
-int dequeModify(struct deque_t* deque, size_t pos, void *data) {
+int deque_modify(struct deque_t* deque, size_t pos, void *data) {
 	if (deque == NULL || data == NULL || pos < 0) {
 		return -1;
 	}
@@ -219,7 +219,7 @@ int dequeModify(struct deque_t* deque, size_t pos, void *data) {
 	return 0;
 }
 
-void dequeClear(struct deque_t* deque) {
+void deque_clear(struct deque_t* deque) {
 	if (!deque) {
 		return;
 	}
@@ -235,7 +235,7 @@ void dequeClear(struct deque_t* deque) {
 	deque->len = 0;
 }
 
-void dequeDestroy(struct deque_t* deque) {
+void deque_destroy(struct deque_t* deque) {
 	if (!deque) {
 		return;
 	}
@@ -249,7 +249,7 @@ void dequeDestroy(struct deque_t* deque) {
 	deque = NULL;
 }
 
-struct deque_iter_t *dequeIterCreate(struct deque_t *deque) {
+struct deque_iter_t *deque_iter_create(struct deque_t *deque) {
 	if (!deque) {
 		return NULL;
 	}
@@ -265,7 +265,7 @@ struct deque_iter_t *dequeIterCreate(struct deque_t *deque) {
 	return result;
 }
 
-void dequeIterDestory(struct deque_iter_t *iter) {
+void deque_iter_destory(struct deque_iter_t *iter) {
 	if (!iter) {
 		return;
 	}
@@ -273,7 +273,7 @@ void dequeIterDestory(struct deque_iter_t *iter) {
 	iter = NULL;
 }
 
-void dequeIterAttach(struct deque_iter_t *iter, struct deque_t *deque) {
+void deque_iter_attach(struct deque_iter_t *iter, struct deque_t *deque) {
 	if (!deque) {
 		return;
 	}
@@ -290,31 +290,33 @@ void dequeIterAttach(struct deque_iter_t *iter, struct deque_t *deque) {
 	iter->curr_node = deque->head;
 }
 
-void dequeIterNext(struct deque_iter_t *iter) {
+int deque_iter_next(struct deque_iter_t *iter) {
 	if (!iter) {
-		return;
+		return -1;
 	}
 
 	if (iter->curr_node == iter->deque->tail) {
-		return;
+		return -1;
 	}
 
 	iter->curr_node = iter->curr_node->next;
+	return 0;
 }
 
-void dequeIterPrev(struct deque_iter_t *iter) {
+int deque_iter_prev(struct deque_iter_t *iter) {
 	if (!iter) {
-		return;
+		return -1;
 	}
 
 	if (iter->curr_node == iter->deque->head) {
-		return;
+		return -1;
 	}
 
 	iter->curr_node->prev = iter->curr_node->prev;
+	return 0;
 }
 
-void dequeIterHead(struct deque_iter_t *iter) {
+void deque_iter_head(struct deque_iter_t *iter) {
 	if (!iter) {
 		return;
 	}
@@ -325,8 +327,7 @@ void dequeIterHead(struct deque_iter_t *iter) {
 
 	iter->curr_node = iter->deque->head;
 }
-
-void dequeIterTail(struct deque_iter_t *iter) {
+void deque_iter_tail(struct deque_iter_t *iter) {
 	if (!iter) {
 		return;
 	}
@@ -336,4 +337,8 @@ void dequeIterTail(struct deque_iter_t *iter) {
 	}
 
 	iter->curr_node = iter->deque->tail;
+}
+
+void deque_iter_release(struct deque_iter_t *iter) {
+	free(iter);
 }
